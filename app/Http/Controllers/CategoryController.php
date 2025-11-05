@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -27,9 +30,35 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'icon' => 'required|image|mimes:png,jpg,svg',
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        if ($request->hasFile('icon')) {
+            $iconPath = $request->file('icon')->store('category_icons', 'public');
+            $validated['icon'] = $iconPath;
+        }
+
+        $validated['slug'] = Str::slug($request->name);
+
+        $newCategory = Category::create($validated);
+
+        DB::commit();
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+
+        throw ValidationException::withMessages([
+            'system_error' => ['System Error! ' . $e->getMessage()],
+        ]);
     }
+}
 
     /**
      * Display the specified resource.
