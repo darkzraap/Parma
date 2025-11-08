@@ -21,11 +21,12 @@
                 @forelse ($products as $product)
                     <div class="flex flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                         <div class="flex items-center gap-3">
-                            <img src="{{ Storage::url($product->photo) }}" alt="{{ $product->name }}" class="w-48 h-48">
+                            <img src="{{ Storage::url($product->photo) }}" alt="{{ $product->name }}" class="h-[2rem]">
                             <div>
                                 <h4 class="font-medium text-gray-800">{{ $product->name }}</h4>
                                 <h4>Rp.{{ $product->price }}</h4>
                             </div>
+                            <p>{{ $product->category->name }}
                         </div>
 
                         <div class="flex items-center gap-2">
