@@ -21,23 +21,25 @@
                 @forelse ($categories as $category)
                     <div class="flex flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                         <div class="flex items-center gap-3">
-                            <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}" class="w-6 h-6">
+                            <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}"
+                                class="w-48 h-48">
                             <h4 class="font-medium text-gray-800">{{ $category->name }}</h4>
                         </div>
 
                         <div class="flex items-center gap-2">
                             <!-- Tombol Edit -->
-                            <a href="{{ route('admin.categories.edit', $category->slug) }}"
-                               class="px-4 py-2 text-sm text-white bg-indigo-600 rounded-lg hover:bg-indigo-500">
+                            <a href="{{ route('admin.categories.edit', $category) }}"
+                                class="px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-indigo-500">
                                 Edit
                             </a>
 
                             <!-- Tombol Delete -->
-                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this category?')">
+                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
+                                onsubmit="return confirm('Are you sure want to delete this category?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                        class="px-4 py-2 text-sm text-white bg-red-600 rounded-lg hover:bg-red-500">
+                                    class="px-4 py-2 text-sm text-white bg-red-600 rounded-lg hover:bg-red-500">
                                     Delete
                                 </button>
                             </form>

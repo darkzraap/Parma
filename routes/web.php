@@ -18,10 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->name('admin.')->group(function(){
-            Route::resource('products', ProductController::class)->middleware('role:owner');
-            Route::resource('categories', CategoryController::class)->middleware('role:owner');
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('products', ProductController::class)->middleware('role:owner');
+        Route::resource('categories', CategoryController::class)->middleware('role:owner');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

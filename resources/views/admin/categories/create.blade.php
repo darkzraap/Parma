@@ -6,13 +6,14 @@
     </x-slot>
 
 
-<div class = 'flex justify-center mt-5'>
-    <a href= {{ route('admin.categories.index') }}>
-        <div class = 'flex items-center justify-center w-24 h-10 text-center text-white bg-blue-500 rounded-xl hover:bg-blue-300'>
-            Back
-        </div>
+    <div class = 'flex justify-center mt-5'>
+        <a href={{ route('admin.categories.index') }}>
+            <div
+                class = 'flex items-center justify-center w-24 h-10 text-center text-white bg-blue-500 rounded-xl hover:bg-blue-300'>
+                Back
+            </div>
         </a>
-
+    </div>
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
@@ -25,7 +26,7 @@
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
                         <x-text-input id="name" class="block w-full mt-1" type="text" name="name"
-                                      :value="old('name')" required autofocus autocomplete="name" />
+                            :value="old('name')" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
