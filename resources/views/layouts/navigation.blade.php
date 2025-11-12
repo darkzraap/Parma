@@ -5,9 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('dashboard') }}">
-                        <img src = '{{ asset('icon/icon.png') }}' class ='w-[8rem]'>
+                    <a href="{{ route('dashboard') }}" class="block">
+                        <img src="{{ asset('icon/icon.png') }}" alt="Logo" width="128" height="128"
+                            class="w-32 h-auto transition-opacity duration-300 opacity-0" loading="eager"
+                            decoding="async" onload="this.style.opacity='1'">
+                    </a>
                 </div>
+
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -42,7 +47,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-black border border-transparent rounded-md animate-bounce hover:text-gray-700 focus:outline-none">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">

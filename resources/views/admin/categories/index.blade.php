@@ -21,9 +21,8 @@
                 @forelse ($categories as $category)
                     <div class="flex flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                         <div class="flex items-center gap-3">
-                            <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}"
-                                class="w-48 h-48">
-                            <h4 class="font-medium text-gray-800">{{ $category->name }}</h4>
+                            <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}" class="w-[4rem]">
+                            <h4 class="mt-3 font-medium text-gray-800 ">{{ $category->name }}</h4>
                         </div>
 
                         <div class="flex items-center gap-2">
