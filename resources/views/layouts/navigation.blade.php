@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-indigo-600 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,8 +6,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9" />
-                    </a>
+                        <img src = '{{ asset('icon/icon.png') }}' class ='w-[8rem]'>
                 </div>
 
                 <!-- Navigation Links -->
@@ -18,22 +17,22 @@
                 </div>
 
                 @role('owner')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Manage Categories') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                            {{ __('Manage Categories') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
-                        {{ __('Manage Products') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                            {{ __('Manage Products') }}
+                        </x-nav-link>
+                    </div>
                 @endrole
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('product_transactions.index')" :active="request()->routeIs('product_transactions.index')">
-                        {{ Auth::user()->hasRole('owner') ?__('Manage Orders') : __('My Transactions') }}
+                        {{ Auth::user()->hasRole('owner') ? __('Manage Orders') : __('My Transactions') }}
                     </x-nav-link>
                 </div>
             </div>
