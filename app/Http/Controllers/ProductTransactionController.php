@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductTransaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use index;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\ProductTransaction;
+use Illuminate\Support\Facades\Auth;
 
 class ProductTransactionController extends Controller
 {
@@ -28,6 +29,7 @@ class ProductTransactionController extends Controller
 
     public function show(ProductTransaction $productTransaction)
     {
-        return view('admin.product_transactions.details');
+        $productTransaction = ProductTransaction::with('transactionDetails.product')->find($productTransaction->id);
+        return view('admin.product_transactions.details', ['productTransaction' => $productTransaction]);
     }
 }
