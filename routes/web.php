@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('product_transactions', ProductTransactionController::class)->middleware('role:owner|buyer');
 
+Route::put('product_transactions/{product_transaction}/reback',
+    [ProductTransactionController::class , 'reback'])
+    ->name('product_transactions.reback')
+    ->middleware('role:owner|buyer');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('products', ProductController::class)->middleware('role:owner');

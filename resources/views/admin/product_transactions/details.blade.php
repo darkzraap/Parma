@@ -22,11 +22,19 @@
                             <p>{{ $productTransaction->created_at }}</p>
                         </div>
 
-                        <div>
-                            <span class="px-4 py-2 text-sm text-white bg-orange-600 rounded-lg">
-                                PENDING
-                            </span>
-                        </div>
+                        @if ($productTransaction->is_paid == false)
+                            <div>
+                                <span class="px-4 py-2 text-sm text-white bg-orange-600 rounded-lg">
+                                    PENDING
+                                </span>
+                            </div>
+                        @else
+                            <div>
+                                <span class="px-4 py-2 text-sm text-white bg-indigo-600 rounded-lg">
+                                    Approved
+                                </span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -35,7 +43,7 @@
                     <p class="text-sm font-semibold">List of Product</p>
                 </div>
 
-                <div class="flex items-center justify-center gap-6 py-3 border rounded-lg">
+                <div class="flex flex-col items-center gap-6 py-3 border rounded-lg">
                     @forelse($productTransaction->transactionDetails as $detail)
                         <img src="{{ Storage::url($detail->product->photo) }}" class="w-12 h-12 bg-gray-100 rounded-lg">
 
@@ -57,7 +65,7 @@
                     <img src="{{ Storage::url($productTransaction->proof) }}" class="w-48 h-64 bg-gray-100 rounded-lg">
 
                     <div class="flex flex-col gap-2 text-sm text-gray-600">
-                        <p>Name : Ari Arya Putra</p>
+                        <p>Name : {{ $productTransaction->user->name }}</p>
                         <p>Address : {{ $productTransaction->address }}</p>
                         <p>City : {{ $productTransaction->city }}</p>
                         <p>Post Code : {{ $productTransaction->post_code }}</p>
@@ -68,28 +76,42 @@
 
                 <!-- APPROVE BUTTON -->
                 @role('owner')
-                    <div class="flex justify-center">
-                        <form action="{{ route('product_transactions.update', 1) }}" method="POST"
-                            onsubmit="return confirm('Are you sure want to approve this order?')">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit"
-                                class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
-                                Approve Order
-                            </button>
-                        </form>
-                    @endrole
 
-                    @role('buyer')
-                        <a href = '#'
-                            class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
-                            Contact Admin
-                        </a>
-                    @endrole
-                </div>
+                    @if ($productTransaction->is_paid == 0)
+                        <div class="flex justify-center">
+                            <form action="{{ route('product_transactions.update', $productTransaction) }}" method="POST"
+                                onsubmit="return confirm('Are you sure want to approve this order?')">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit"
+                                    class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+                                    Approve Order
+                                </button>
+                            </form>
+                        @else
+                            <div class="flex ml-[3rem] justify-center">
+                                <form action="{{ route('product_transactions.reback', $productTransaction) }}"
+                                    method="POST" onsubmit="return confirm('Are you sure want to disapprove this order?')">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit"
+                                        class="px-6 py-3 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-200">
+                                        Cancel Order Approve
+                                    </button>
+                                </form>
+                    @endif
+                @endrole
 
-
+                @role('buyer')
+                    <a href="https://wa.me/6289659283270" target="_blank"
+                        class="px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+                        Contact Admin
+                    </a>
+                @endrole
             </div>
+
+
         </div>
+    </div>
     </div>
 </x-app-layout>

@@ -32,4 +32,24 @@ class ProductTransactionController extends Controller
         $productTransaction = ProductTransaction::with('transactionDetails.product')->find($productTransaction->id);
         return view('admin.product_transactions.details', ['productTransaction' => $productTransaction]);
     }
+
+    public function update(Request $request, ProductTransaction $productTransaction)
+    {
+
+        $productTransaction->update([
+            'is_paid' => true,
+        ]);
+        return redirect()->back();
+    }
+
+    public function reback(Request $request, ProductTransaction $productTransaction)
+    {
+          $productTransaction->update([
+            'is_paid' => false,
+        ]);
+        return redirect()->back();
+
+    }
+
+
 }
