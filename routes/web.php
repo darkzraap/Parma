@@ -4,11 +4,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTransactionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class , 'index'])->name('front.index');
+Route::get('/details/{product:slug}', [FrontController::class , 'details'])->name('front.product.details');
+Route::get('/search',[FrontController::class , 'search'])->name('front.search');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
