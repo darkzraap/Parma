@@ -84,8 +84,8 @@
 				Best Medicines
 			</p>
 			<form action="" method="POST" id="searchForm" class="w-full">
-				<input type="text" name="search" id="searchProduct"
-					class="block w-full py-3.5 pl-4 pr-10 rounded-[50px] font-semibold placeholder:text-grey placeholder:font-normal text-black text-base bg-no-repeat bg-[calc(100%-16px)] bg-[url('{{asset('assets/svgs/ic-search.svg')}}')] focus:ring-2 focus:ring-primary focus:outline-none focus:border-none transition-all"
+				<input style ="background-image: url('{{ asset('assets/svgs/ic-search.svg') }}')" type="text" name="search" id="searchProduct"
+					class="block w-full py-3.5 pl-4 pr-10 rounded-[50px] font-semibold placeholder:text-grey placeholder:font-normal text-black text-base bg-no-repeat bg-[calc(100%-16px)]  focus:ring-2 focus:ring-primary focus:outline-none focus:border-none transition-all"
 					placeholder="Search by product name">
 			</form>
 		</section>
@@ -108,34 +108,17 @@
 				Categories
 			</p>
 			<div id="categoriesSlider" class="relative">
-				<!-- Diabetes -->
+                @forelse($categories as $category)
 				<div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
-					<img src="{{asset('assets/svgs/ic-diabetes-filled.svg')}}" class="size-10" alt="">
+					<img src="{{ Storage::url($category->icon) }}" class="size-10" alt="">
 					<a href="#" class="text-base font-semibold truncate stretched-link">
-						Diabetes
-					</a>
+						{{ $category->name }}					</a>
 				</div>
+                @empty
+                <p>tidak ada kategori yang ditambahkan</p>
+                @endforelse
 				<!-- Fitness -->
-				<div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
-					<img src="{{asset('assets/svgs/ic-fitness-filled.svg')}}" class="size-10" alt="">
-					<a href="#" class="text-base font-semibold truncate stretched-link">
-						Fitness
-					</a>
-				</div>
-				<!-- Vitamins -->
-				<div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
-					<img src="{{asset('assets/svgs/ic-vitamins-filled.svg')}}" class="size-10" alt="">
-					<a href="#" class="text-base font-semibold truncate stretched-link">
-						Vitamins
-					</a>
-				</div>
-				<!-- Surgicals -->
-				<div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
-					<img src="{{asset('assets/svgs/ic-surgicals-filled.svg')}}" class="size-10" alt="">
-					<a href="#" class="text-base font-semibold truncate stretched-link">
-						Surgicals
-					</a>
-				</div>
+
 			</div>
 		</section>
 
@@ -145,50 +128,29 @@
 				Latest Products
 			</p>
 			<div id="proudctsSlider" class="relative">
-				<!-- Panadomal -->
+
+                @forelse($products as $product)
 				<div class="rounded-2xl bg-white py-3.5 pl-4 pr-[22px] inline-flex flex-col gap-4 items-start mr-4 relative w-[158px]">
-					<img src="{{asset('assets/images/product-1.webp')}}" class="h-[100px] w-full object-contain" alt="">
+					<img src="{{ Storage::url($product->photo) }}" class="h-[100px] w-full object-contain" alt="">
 					<div>
-						<a href="details.html" class="text-base font-semibold w-[120px] truncate stretched-link block">
-							Panadomal
+						<a href="{{ route('front.product.details', $product->slug) }}" class="text-base font-semibold w-[120px] truncate stretched-link block">
+							{{ $product->name }}
 						</a>
 						<p class="text-sm truncate text-grey">
-							Rp 56000
+							Rp {{ $product->price }}
 						</p>
 					</div>
 				</div>
-				<!-- Softovac Rami -->
-				<div class="rounded-2xl bg-white py-3.5 pl-4 pr-[22px] inline-flex flex-col gap-4 items-start mr-4 relative w-[158px]">
-					<img src="{{asset('assets/images/product-4.webp')}}" class="h-[100px] w-full object-contain" alt="">
-					<div>
-						<a href="details.html" class="text-base font-semibold w-[120px] truncate stretched-link block">
-							Softovac Rami
-						</a>
-						<p class="text-sm truncate text-grey">
-							Rp 290000
-						</p>
-					</div>
-				</div>
-				<!-- Softovac Rami -->
-				<div class="rounded-2xl bg-white py-3.5 pl-4 pr-[22px] inline-flex flex-col gap-4 items-start mr-4 relative w-[158px]">
-					<img src="{{asset('assets/images/product-2.webp')}}" class="h-[100px] w-full object-contain" alt="">
-					<div>
-						<a href="details.html" class="text-base font-semibold w-[120px] truncate stretched-link block">
-							Softovac Rami
-						</a>
-						<p class="text-sm truncate text-grey">
-							Rp 290000
-						</p>
-					</div>
-				</div>
+                @empty
+                <p>tidak ada produk</p>
+                @endforelse
 			</div>
 		</section>
 
 		<!-- Explore -->
 		<section class="wrapper">
-			<div
-				class="bg-lilac py-3.5 px-5 rounded-2xl relative bg-right-bottom bg-no-repeat bg-[url('{{asset('assets/svgs/doctor-help.svg')}}')] bg-auto">
-				<img src="{{asset('assets/svgs/cloud.svg')}}" class="-ml-1.5 mb-1.5" alt="">
+			<div style = "background-image: url('{{ asset('assets/svgs/doctor-help.svg') }}')"
+				class="bg-lilac py-3.5 px-5 rounded-2xl relative bg-right-bottom bg-no-repeat bg-auto>
 				<div class="flex flex-col gap-4 mb-[23px]">
 					<p class="text-base font-bold">
 						Explore great doctors <br>

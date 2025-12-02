@@ -13,4 +13,8 @@ class FrontController extends Controller
         $categories = Category::all();
         return view('front.index', ['products' => $products , 'categories' => $categories]);
     }
+
+    public function details(Product $product){
+        return view('front.details', ['product' => $product]);
+    }
 }
