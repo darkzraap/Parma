@@ -19,7 +19,7 @@
 				</div>
 				<div class="">
 					<p class="text-base font-semibold capitalize text-primary">
-						Angga King
+						{{ $user->name }}
 					</p>
 					<p class="text-sm">
 						Customer
