@@ -1,9 +1,7 @@
 <nav x-data="{ open: false }" class="bg-indigo-600 border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" class="block">
                         <img src="{{ asset('icon/icon.png') }}" alt="Logo" width="128" height="128"
@@ -12,42 +10,45 @@
                     </a>
                 </div>
 
-
-
-                <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white hover:text-gray-200">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
 
                 @role('owner')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')" class="text-white hover:text-gray-200">
                             {{ __('Manage Categories') }}
                         </x-nav-link>
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')" class="text-white hover:text-gray-200">
                             {{ __('Manage Products') }}
                         </x-nav-link>
                     </div>
                 @endrole
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('product_transactions.index')" :active="request()->routeIs('product_transactions.index')">
+                    <x-nav-link :href="route('product_transactions.index')" :active="request()->routeIs('product_transactions.index')" class="text-white hover:text-gray-200">
                         {{ Auth::user()->hasRole('owner') ? __('Manage Orders') : __('My Transactions') }}
                     </x-nav-link>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('front.index')" :active="request()->routeIs('front.index')" class="text-white hover:text-gray-200">
+                            {{ __('Store') }}
+                        </x-nav-link>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-black border border-transparent rounded-md animate-bounce hover:text-gray-700 focus:outline-none">
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-indigo-600 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-indigo-800 focus:outline-none">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -66,7 +67,6 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -80,10 +80,9 @@
                 </x-dropdown>
             </div>
 
-            <!-- Hamburger -->
             <div class="flex items-center -me-2 sm:hidden">
                 <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+                    class="inline-flex items-center justify-center p-2 text-indigo-100 transition duration-150 ease-in-out rounded-md hover:text-white hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white">
                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -96,31 +95,58 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden bg-indigo-700 sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
+                class="text-white border-indigo-300 focus:border-indigo-100 focus:bg-indigo-600 focus:text-white">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            {{-- FIXED: Added Owner Links for Mobile --}}
+            @role('owner')
+                <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')"
+                    class="text-white border-indigo-300 focus:border-indigo-100 focus:bg-indigo-600 focus:text-white">
+                    {{ __('Manage Categories') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')"
+                    class="text-white border-indigo-300 focus:border-indigo-100 focus:bg-indigo-600 focus:text-white">
+                    {{ __('Manage Products') }}
+                </x-responsive-nav-link>
+            @endrole
+
+            {{-- FIXED: Added Transaction Links for Mobile --}}
+            <x-responsive-nav-link :href="route('product_transactions.index')" :active="request()->routeIs('product_transactions.index')"
+                class="text-white border-indigo-300 focus:border-indigo-100 focus:bg-indigo-600 focus:text-white">
+                {{ Auth::user()->hasRole('owner') ? __('Manage Orders') : __('My Transactions') }}
+
+
+
+                <x-responsive-nav-link :href="route('front.index')" :active="request()->routeIs('front.index')"
+                    class="text-white border-indigo-300 focus:border-indigo-100 focus:bg-indigo-600 focus:text-white">
+                    {{ __('Store') }}
+                </x-responsive-nav-link>
+
+
             </x-responsive-nav-link>
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-indigo-500">
             <div class="px-4">
-                <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="text-base font-medium text-white">{{ Auth::user()->name }}</div>
+                <div class="text-sm font-medium text-indigo-200">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" class="text-indigo-100 hover:text-white hover:bg-indigo-600">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
+                        class="text-indigo-100 hover:text-white hover:bg-indigo-600"
                         onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontController::class , 'index'])->name('front.index');
 Route::get('/details/{product:slug}', [FrontController::class , 'details'])->name('front.product.details');
 Route::get('/search',[FrontController::class , 'search'])->name('front.search');
+Route::get('/category/{category}',[FrontController::class , 'category'])->name('front.category');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('carts', CartController::class)->middleware('role:buyer');
+    Route::post('/cart/add/{productId}', [CartController::class, 'store'])->middleware('role:buyer')->name('carts.store');
     Route::resource('product_transactions', ProductTransactionController::class)->middleware('role:owner|buyer');
 
 Route::put('product_transactions/{product_transaction}/reback',
